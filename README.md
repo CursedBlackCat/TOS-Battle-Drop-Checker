@@ -36,7 +36,7 @@ A: I will have to look into the .plist format that iOS uses, but this is not a c
 
 **Q: Can you steal my account if I use this application?**
 
-A: In short, **no**. This application only works offline, and you can check the code yourself if you do not believe me. That being said, your com.madhead.tos.en.v2.playerprefs.xml file is not only where battle information is stored, but it is also your account file, and if you share this file to someone, they will be able to access your TOS account. I would therefore advise you to be extremely careful with who you share this file with.
+A: In short, **no**. This application only works offline, and you can check the code yourself if you do not believe me. That being said, your com.madhead.tos.en.v2.playerprefs.xml file is not only where battle information is stored, but it is also your account file, and if you share this file to someone they will be able to access your TOS account. I would therefore advise you to be extremely careful with who you share this file with.
 
 ## Want to contribute?
 
