@@ -1,13 +1,45 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.ddns.thecatgod</groupId>
-	<artifactId>tosbattledropchecker</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>battledropchecker</artifactId>
+	<version>1.0.0</version>
 	<name>TOS Battle Drop Checker</name>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
+			<plugin>
+				<!-- Build an executable JAR -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.0.2</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>net.ddns.thecatgod.battledropchecker.BattleDropChecker</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<!-- Package all dependencies into jar -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.7.0</version>

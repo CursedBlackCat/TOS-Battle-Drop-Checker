@@ -1,17 +1,14 @@
+package net.ddns.thecatgod.battledropchecker;
+
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.util.Scanner;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -43,8 +40,9 @@ public class BattleDropChecker {
 	private static String getCardNameFromID(int id) {
 		JSONTokener tokener = null;
 		try {
-			tokener = new JSONTokener(new FileInputStream("cards.json"));
-		} catch (FileNotFoundException e) {
+			tokener = new JSONTokener(BattleDropChecker.class.getResourceAsStream("/cards.json"));
+		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("BattleDropChecker encountered an error when trying to load card name for card ID" + padZeroes(id) + ". Using card ID instead.");
 			return null;
 		}
