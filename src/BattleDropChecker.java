@@ -55,13 +55,16 @@ public class BattleDropChecker {
 			doc = dBuilder.parse("com.madhead.tos.en.v2.playerprefs.xml");
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
-			System.out.println("\\nBattleDropChecker encountered an error when trying to access the XML file.");
+			System.out.println("\\nBattleDropChecker encountered an error when trying to load the XML file.");
+			System.exit(0);
 		} catch (SAXException e) {
 			e.printStackTrace();
-			System.out.println("\\nBattleDropChecker encountered an error when trying to access the XML file.");
+			System.out.println("\\nBattleDropChecker encountered an error when trying to load the XML file.");
+			System.exit(0);
 		} catch (IOException e) {
 			e.printStackTrace();
-			System.out.println("\nBattleDropChecker encountered an error when trying to access the XML file.");
+			System.out.println("\nBattleDropChecker encountered an error when trying to load the XML file.");
+			System.exit(0);
 		}
 
 		/*Get the battle data and store it in a string*/
