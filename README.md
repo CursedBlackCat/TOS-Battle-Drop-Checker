@@ -27,13 +27,16 @@ If you encounter any issues while using the program, please open an issue on thi
 
 ## FAQ
 **Q: Can Madhead detect if I use this tool?**
+
 A: Theoretically, no. All of the checks are done offline and no modification is being made to the battle or to the game, so you aren't directly gaining any unfair advantage aside from better diamond economy. That being said, I, TheCatGod, assume no liability or responsibility in any way for any losses that you may incur from using this tool. I am merely putting the tool here and sharing my work, but if you decide to use it then that is your decision and I will not be held responsible for your own decision to use my code.
 
 **Q: Will you be making an iOS release?**
+
 A: I will have to look into the .plist format that iOS uses, but this is not a current plan for me. I may possibly try to do it if there is enough interest. Additionally, I do not have access to any of the newer iOS devices; my only iOS device that I can use for testing is an old iPad 2.
 
 **Q: Can you steal my account if I use this application?**
-A: In short, **no**. This application only works offline, and you can check the code yourself if you do not believe me. That being said, **your com.madhead.tos.en.v2.playerprefs.xml file is your account file, and if you share this file to someone, they will be able to access your TOS account.** I would therefore advise you to be extremely careful with who you share this file with.
+
+A: In short, **no**. This application only works offline, and you can check the code yourself if you do not believe me. That being said, your com.madhead.tos.en.v2.playerprefs.xml file is your account file, and if you share this file to someone, they will be able to access your TOS account. I would therefore advise you to be extremely careful with who you share this file with.
 
 ## Want to contribute?
 
