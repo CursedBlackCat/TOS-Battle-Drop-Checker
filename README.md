@@ -4,7 +4,7 @@ The TOS Battle Drop Checker takes the com.madhead.tos.en.v2.playerprefs.xml file
 
 This program only works with the Android version of the game.
 
-This is the core code for the Battle Drop Checker, reading from a file named com.madhead.tos.en.v2.playerprefs.xml in the project root and outputting to the standard Java console. **This code is not intended to be used as a standalone application.** The code will be implemented into more convenient ways of input/output, such as through a Discord bot, a GUI applcation, or an Android app.
+This is the core code for the Battle Drop Checker, reading from a file named com.madhead.tos.en.v2.playerprefs.xml in the project root and outputting to the standard Java console. **This code is not intended to be used as a standalone application.** The code will be implemented into more convenient ways of input/output, such as through a Discord bot, a GUI application, or an Android app.
 
 If you encounter any issues while using the program, please open an issue on this repository so that I may investigate.
 
