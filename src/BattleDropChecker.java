@@ -1,11 +1,26 @@
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.Scanner;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.WindowConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -21,19 +36,22 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class BattleDropChecker {
+	static ByteArrayOutputStream bos = new ByteArrayOutputStream();
+	static JTextArea outputArea;
+	static File xmlFile = null;
 
 	private static String getCardNameFromID(int id) {
 		JSONTokener tokener = null;
 		try {
 			tokener = new JSONTokener(new FileInputStream("cards.json"));
 		} catch (FileNotFoundException e) {
-			System.out.println("\\nBattleDropChecker encountered an error when trying to load card name for card ID" + padZeroes(id) + ". Using card ID instead.");
+			System.out.println("BattleDropChecker encountered an error when trying to load card name for card ID" + padZeroes(id) + ". Using card ID instead.");
 			return null;
 		}
 		JSONObject cards = new JSONObject(tokener);
 		return cards.getString(padZeroes(id));
 	}
-	
+
 	private static String padZeroes(int id) {
 		if (id < 10) {
 			return "00" + id;
@@ -44,7 +62,11 @@ public class BattleDropChecker {
 		}
 	}
 
-	public static void main(String[] args) {
+	private static void printDrops(File xml) {
+		/*Enable System.out.println to be redirected to GUI*/
+		System.setOut(new PrintStream(bos));
+		//get output after each println by using bos.toString("UTF-8")
+
 		/*Initialize the document*/
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
@@ -52,19 +74,31 @@ public class BattleDropChecker {
 
 		try {
 			dBuilder = dbFactory.newDocumentBuilder();
-			doc = dBuilder.parse("com.madhead.tos.en.v2.playerprefs.xml");
+			doc = dBuilder.parse(xml);
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
-			System.out.println("\\nBattleDropChecker encountered an error when trying to load the XML file.");
-			System.exit(0);
+			System.out.println("BattleDropChecker encountered an error when trying to load the XML file.");
+			try {
+				outputArea.setText(bos.toString("UTF-8"));
+			} catch (UnsupportedEncodingException e1) {
+				JOptionPane.showMessageDialog(null, "BattleDropChecker encountered an error when trying to display output. Please ensure that your computer supports UTF-8.");
+			}
 		} catch (SAXException e) {
 			e.printStackTrace();
-			System.out.println("\\nBattleDropChecker encountered an error when trying to load the XML file.");
-			System.exit(0);
+			System.out.println("BattleDropChecker encountered an error when trying to load the XML file.");
+			try {
+				outputArea.setText(bos.toString("UTF-8"));
+			} catch (UnsupportedEncodingException e1) {
+				JOptionPane.showMessageDialog(null, "BattleDropChecker encountered an error when trying to display output. Please ensure that your computer supports UTF-8.");
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			System.out.println("\nBattleDropChecker encountered an error when trying to load the XML file.");
-			System.exit(0);
+			System.out.println("BattleDropChecker encountered an error when trying to load the XML file.");
+			try {
+				outputArea.setText(bos.toString("UTF-8"));
+			} catch (UnsupportedEncodingException e1) {
+				JOptionPane.showMessageDialog(null, "BattleDropChecker encountered an error when trying to display output. Please ensure that your computer supports UTF-8.");
+			}
 		}
 
 		/*Get the battle data and store it in a string*/
@@ -85,7 +119,11 @@ public class BattleDropChecker {
 		/*Check that the battle data exists. If not, exit the program.*/
 		if (battleData.isEmpty()) {
 			System.out.println("Couldn't load the battle data from the XML file.");
-			System.exit(0);
+			try {
+				outputArea.setText(bos.toString("UTF-8"));
+			} catch (UnsupportedEncodingException e1) {
+				JOptionPane.showMessageDialog(null, "BattleDropChecker encountered an error when trying to display output. Please ensure that your computer supports UTF-8.");
+			}
 		}
 
 		/*Decode the URL encoding*/
@@ -93,7 +131,12 @@ public class BattleDropChecker {
 			battleData = java.net.URLDecoder.decode(battleData, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
-			System.out.println("\nBattleDropChecker encountered an error when trying to decode the battle data.");
+			System.out.println("BattleDropChecker encountered an error when trying to decode the battle data.");
+			try {
+				outputArea.setText(bos.toString("UTF-8"));
+			} catch (UnsupportedEncodingException e1) {
+				JOptionPane.showMessageDialog(null, "BattleDropChecker encountered an error when trying to display output. Please ensure that your computer supports UTF-8.");
+			}
 		}
 
 		/*Truncate the hash at the start of the string*/
@@ -111,7 +154,12 @@ public class BattleDropChecker {
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
-			System.out.println("\nBattleDropChecker encountered an error when trying to parse the battle data JSON.");
+			System.out.println("BattleDropChecker encountered an error when trying to parse the battle data JSON.");
+			try {
+				outputArea.setText(bos.toString("UTF-8"));
+			} catch (UnsupportedEncodingException e1) {
+				JOptionPane.showMessageDialog(null, "BattleDropChecker encountered an error when trying to display output. Please ensure that your computer supports UTF-8.");
+			}
 		}
 
 		/*Iterate over each battle wave, finding the loot that drops and storing it in an array.*/
@@ -148,16 +196,65 @@ public class BattleDropChecker {
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				System.out.println("\nBattleDropChecker encountered an error when trying to check the loot for battle wave " + Integer.toString(i + 1) + ".");
+				System.out.println("BattleDropChecker encountered an error when trying to check the loot for battle wave " + Integer.toString(i + 1) + ".");
+				try {
+					outputArea.setText(bos.toString("UTF-8"));
+				} catch (UnsupportedEncodingException e1) {
+					JOptionPane.showMessageDialog(null, "BattleDropChecker encountered an error when trying to display output. Please ensure that your computer supports UTF-8.");
+				}
 			}
 		}
 
 		for (int i = 0; i < battleDrops.length; i++) {
 			if (battleDrops[i] != null) {
 				System.out.println("Battle wave " + Integer.toString(i + 1) + ": " + battleDrops[i]);
+				try {
+					outputArea.setText(bos.toString("UTF-8"));
+				} catch (UnsupportedEncodingException e1) {
+					JOptionPane.showMessageDialog(null, "BattleDropChecker encountered an error when trying to display output. Please ensure that your computer supports UTF-8.");
+				}
 			} else {
 				System.out.println("Battle wave " + Integer.toString(i + 1) + ": no drops");
+				try {
+					outputArea.setText(bos.toString("UTF-8"));
+				} catch (UnsupportedEncodingException e1) {
+					JOptionPane.showMessageDialog(null, "BattleDropChecker encountered an error when trying to display output. Please ensure that your computer supports UTF-8.");
+				}
 			}
 		}
+	}
+
+	public static void main(String[] args) {
+		JFrame mainFrame = new JFrame("TOS Battle Drop Checker");
+		mainFrame.setSize(400, 600);
+		mainFrame.setLayout(new BoxLayout(mainFrame.getContentPane(), BoxLayout.Y_AXIS));
+
+		mainFrame.add(Box.createRigidArea(new Dimension(0,10)));
+		
+		JButton loadXMLButton = new JButton("Load an XML file");
+		loadXMLButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				final JFileChooser fc = new JFileChooser();
+				int returnVal = fc.showOpenDialog(mainFrame);
+
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					xmlFile =  fc.getSelectedFile();
+					printDrops(xmlFile);
+				} 
+			}
+		});
+		loadXMLButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		mainFrame.add(loadXMLButton);
+		
+		mainFrame.add(Box.createRigidArea(new Dimension(0,10)));
+		
+		outputArea = new JTextArea();
+		outputArea.setEditable(false);
+		mainFrame.add(outputArea);
+
+		mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		
+		mainFrame.setVisible(true);
 	}
 }
