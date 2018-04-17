@@ -15,7 +15,7 @@ If you encounter any issues while using the program, please open an issue on thi
 ### Prerequisites
 * TOS on a rooted Android device
 * JRE (Java Runtime Environment) installed on your computer
-* Latest release of TOS Battle Drop Checker (download from [here](https://github.com/CursedBlackCat/TOS-Battle-Drop-Checker/releases))
+* Latest release of TOS Battle Drop Checker (download the JAR file from [here](https://github.com/CursedBlackCat/TOS-Battle-Drop-Checker/releases))
 
 ### Steps
 1. Start a battle in TOS, then force close TOS.
