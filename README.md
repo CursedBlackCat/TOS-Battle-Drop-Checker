@@ -19,7 +19,7 @@ If you encounter any issues while using the program, please open an issue on thi
 
 ### Steps
 1. Start a battle in TOS, then force close TOS.
-2. Using a root browser of your choice, navigate to /data/data/com.madhead.tos.en/files/shared_prefs and copy the file com.madhead.tos.en.v2.playerprefs.xml to the /sdcard/ directory.
+2. Using a root browser of your choice, navigate to /data/data/com.madhead.tos.en/shared_prefs/ and copy the file com.madhead.tos.en.v2.playerprefs.xml to the /sdcard/ directory.
 3. Via USB, Google Drive, or any method of your choice, copy the XML file from /sdcard/ on your phone to any folder on your computer.
 4. Double click on the Battle Drop Checker JAR and click on "Load an XML file".
 5. Navigate to the location where you saved the XML file from step 3, and select the XML file.
